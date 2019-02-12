@@ -144,15 +144,21 @@ public class MainActivity extends AppCompatActivity {
                 final Intent mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 //                    mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 //                            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                final Locale language = swLanguage.isChecked() ?
+                        Locale.SIMPLIFIED_CHINESE :
+                        Locale.getDefault();
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+
                 mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                        swLanguage.isChecked() ?
-                                Locale.CHINA :
-                        Locale.getDefault()
+                        language
                 );
                 mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,
-                        swLanguage.isChecked() ?
-                                Locale.CHINA :
-                        Locale.getDefault()
+                        language
+                );
+                mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE,
+                        language
                 );
 
                 mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
